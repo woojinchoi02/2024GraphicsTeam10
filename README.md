@@ -14,16 +14,16 @@ p5.js로 캐릭터 만들기라는 라는 과제를 하며 지금까지 배운 �
 ## 코드
 -------------------
 function setup() {
-  createCanvas(1500, 1500,WEBGL);
+  createCanvas(1500, 1500);
 }
 //최우진
-let spinZ = 0;// Z축 회전
-let spinZadd = 0.02;
+let spin = 0;// Z축 회전
+let spinadd = 0.02;
 let dogsize = 0;//scale 변수
 let dogY = -350; //변화하는 Y축
 let dogadd = 2; //Y축에 더하는 값
-let spinZ2 = 0; //강아지 팔 움직이기
-let spinZ2add = 0.01;
+let spin2 = 0; //강아지 팔 움직이기
+let spin2add = 0.01;
 
 //우상벙
 let mvpig = 0;
@@ -41,16 +41,17 @@ let sizeChangeSpeed = 0.01; // 크기 변화 속도
 
 function draw(){
   background(80);
-  draw우진();
+  draw우진()
   draw상범();
   draw재형();
-  draw현욱();
+  draw현욱()
 }
 
 function draw우진() {
+  
   push();
+  translate(300,550+dogY);
   noStroke();
-  translate(-250,dogY);
   dogY += dogadd;
   if (dogY < -450 || dogY > 0){
     dogadd *= -1 ;
@@ -63,19 +64,19 @@ function draw우진() {
   fill(215,195,165);//몸통안 색깔
   arc(12, -30, 21, 21, 0,  PI +QUARTER_PI, OPEN);//몸통안
   fill(199,135,73);//시바견 색깔
-  rotateZ(spinZ2);//왼발이 움직이는 값
+  rotate(spin2);//왼발이 움직이는 값
   ellipse(30,-8,22,10);//왼발
   rotate(32.10);//오른발의 각도를 돌려줌
-  rotateZ(-2*spinZ2);//오른발이 같은 방향으로 움직이기위하여 -2를 곱하여줌
+  rotate(-2*spin2);//오른발이 같은 방향으로 움직이기위하여 -2를 곱하여줌
   translate(-38,-37)//오른발 위치설정
   ellipse(9,27,22,10);//오른발 
-  spinZ2 += spinZ2add;//양발이 움직이도록 변수를 주고 점점 증가시킴
-  if (spinZ2 < -0.05|| spinZ2 > 0.05){
-    spinZ2add *= -1 ;//특정값에 도달하면 반대방향으로 돌아가도 설정
+  spin2 += spin2add;//양발이 움직이도록 변수를 주고 점점 증가시킴
+  if (spin2 < -0.05|| spin2 > 0.05){
+    spin2add *= -1 ;//특정값에 도달하면 반대방향으로 돌아가도 설정
   }
   pop();//몸통
   
-  rotateZ(spinZ);//얼굴 전체를 움직이기위해 설정
+  rotate(spin);//얼굴 전체를 움직이기위해 설정
   fill(199,135,73);//시바견 색깔
   ellipse(0,0,40,40);//얼굴
   triangle(-13, 6, 16, 10, 20, -31);//왼쪽 귀
@@ -100,17 +101,17 @@ function draw우진() {
   arc(4, 11, 5, 8, 0, PI , PIE); //혀
   fill(0,0,0);
   arc(0, 10, 20, 5, -QUARTER_PI/5, PI + QUARTER_PI/5, PIE);//입
-  spinZ += spinZadd;//머리가 움직이도록 변수를 주고 값을 더해줌
-  if (spinZ > 0.3 || spinZ < -0.3){
-    spinZadd *= -1;//특정값에 도달하면 반대방향으로 돌아가도록 설정
+  spin += spinadd;//머리가 움직이도록 변수를 주고 값을 더해줌
+  if (spin > 0.3 || spin < -0.3){
+    spinadd *= -1;//특정값에 도달하면 반대방향으로 돌아가도록 설정
   }
   pop();
 }
 function draw상범() {
   push();
-  translate(200,-150);
+  translate(900,350);
   fill(255, 230, 230);
-  rotateZ(mvpig+=0.02);
+  rotate(mvpig+=0.02);
   scale(sin(pigsize=pigsize+0.01));
 
   // 돼지의 머리
@@ -143,7 +144,7 @@ function draw상범() {
 }
 function draw재형() {
   let a = sin(t1 = t1+0.01)+1; // 주기적 크기 변화를 위해서 sin 함수 사용
-  translate(-200, 300);
+  translate(300, 950);
   push();   
   fill(255, 255, 0); 
   rotate(4*a);
@@ -156,11 +157,10 @@ function draw재형() {
   line(30, -15, 15, -15);
   bezier(-15, 25, -5, 10, 5, 10, 15, 25); 
   pop(); 
-  
 }
 function draw현욱() {
   strokeWeight(3);
-  translate(400, -100);
+  translate(450, -200);
   // 크기가 커졌다가 줄어드는 효과를 위해 사인 함수를 사용하여 scaleFactor 조절
   scaleFactor1 = sin(angle) * 0.3 + 1;
   scaleFactor2 = sin(angle + PI) * 0.3 + 0.8;
@@ -277,5 +277,5 @@ function drawScaledRotatedRoundedStar(x, y, radius1, radius2, roundedness, rotat
   pop();
   
   angle += rotationSpeed; // 각도 업데이트
-
 }
+
