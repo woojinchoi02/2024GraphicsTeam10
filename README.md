@@ -17,7 +17,7 @@ function setup() {
   createCanvas(1500, 1500);
 }
 //최우진
-let spin = 0;// Z축 회전
+let spin = 0;// 회전
 let spinadd = 0.02;
 let dogsize = 0;//scale 변수
 let dogY = -350; //변화하는 Y축
